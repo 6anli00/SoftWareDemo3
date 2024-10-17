@@ -1,0 +1,23 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+#contactForm {
+    margin-bottom: 20px;
+}
+
+#contactForm input {
+    margin-right: 10px;
+}
+
+#contacts {
+    list-style-type: none;
+    padding: 0;
+}
+
+#contacts li {
+    margin-bottom: 10px;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+}

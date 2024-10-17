@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人通讯录系统</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>个人通讯录系统</h1>
+    <div id="contactForm">
+        <input type="text" id="name" placeholder="姓名">
+        <input type="text" id="address" placeholder="地址">
+        <input type="text" id="phone" placeholder="电话">
+        <button onclick="addContact()">添加联系人</button>
+    </div>
+    <div id="contactList">
+        <h2>联系人列表</h2>
+        <ul id="contacts">
+            <!-- 联系人列表将在这里动态生成 -->
+        </ul>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
