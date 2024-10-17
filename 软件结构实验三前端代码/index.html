@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Contact Manager</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Personal Contact Manager</h1>
+
+    <div id="contactList">
+        <h2>Contacts</h2>
+        <ul id="contacts">
+            <!-- Contacts will be listed here -->
+        </ul>
+    </div>
+
+    <div id="addContact">
+        <h2>Add Contact</h2>
+        <form id="addForm">
+            Name: <input type="text" id="name" required><br>
+            Address: <input type="text" id="address"><br>
+            Phone: <input type="text" id="phone" required><br>
+            <button type="button" onclick="addContact()">Add Contact</button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

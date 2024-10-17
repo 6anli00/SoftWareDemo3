@@ -1,0 +1,19 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+#contactList {
+    margin-bottom: 20px;
+}
+
+#addContact {
+    margin-top: 20px;
+}
+
+input[type="text"] {
+    margin-bottom: 10px;
+}
+
+button {
+    cursor: pointer;
+}
