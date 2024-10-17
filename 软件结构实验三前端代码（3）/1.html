@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人通讯录系统</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            max-width: 600px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+        input {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #5cb85c;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #4cae4c;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        li:last-child {
+            border-bottom: none;
+        }
+        .delete-btn {
+            margin-left: 10px;
+            background-color: #d9534f;
+            color: white;
+            cursor: pointer;
+        }
+        .delete-btn:hover {
+            background-color: #c9302c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>个人通讯录系统</h1>
+        <form id="contactForm">
+            <input type="text" id="name" placeholder="Name" required>
+            <input type="text" id="address" placeholder="Address" required>
+            <input type="text" id="phone" placeholder="Phone" required>
+            <button type="button" onclick="addContact()">Add Contact</button>
+        </form>
+        <h2>Contacts</h2>
+        <ul id="contactsList"></ul>
+    </div>
+
+    <script>
+        function addContact() {
+            const name = document.getElementById('name').value;
+            const address = document.getElementById('address').value;
+            const phone = document.getElementById('phone').value;
+
+            const contact = { name, address, phone };
+
+            fetch('/api/contacts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(contact),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                loadContacts();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
+            document.getElementById('contactForm').reset();
+        }
+
+        function loadContacts() {
+            fetch('/api/contacts')
+                .then(response => response.json())
+                .then(contacts => {
+                    const contactsList = document.getElementById('contactsList');
+                    contactsList.innerHTML = '';
+                    contacts.forEach(contact => {
+                        const contactElement = document.createElement('li');
+                        contactElement.textContent = `${contact.name} - ${contact.address} - ${contact.phone}`;
+                        const deleteBtn = document.createElement('button');
+                        deleteBtn.textContent = 'Delete';
+                        deleteBtn.className = 'delete-btn';
+                        deleteBtn.onclick = function() { deleteContact(contact.id); };
+                        contactElement.appendChild(deleteBtn);
+                        contactsList.appendChild(contactElement);
+                    });
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function deleteContact(id) {
+            fetch(`/api/contacts/${id}`, {
+                method: 'DELETE',
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                loadContacts();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+
+        loadContacts();
+    </script>
+</body>
+</html>
